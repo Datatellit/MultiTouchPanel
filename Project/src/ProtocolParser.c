@@ -27,16 +27,13 @@ void build(uint8_t _destination, uint8_t _sensor, uint8_t _command, uint8_t _typ
 
 bool NeedProcess(uint8_t *arrType,uint8_t num)
 {
-  bool bNeedProcess = TRUE;
+  bool bNeedProcess = FALSE;
   for(uint8_t tidx = 0; tidx < num; tidx++ )
   {
     if(*(arrType+tidx) == gConfig.type) 
     {
+      bNeedProcess = TRUE;
       break;
-    }
-    if(tidx == num-1)
-    {
-      bNeedProcess = FALSE;
     }
   }
   return bNeedProcess;

@@ -59,8 +59,8 @@ uint8_t btn_scenariomap[BTN_NUM] = {1,2,3,4,5,6};
 #define BUTTON_PIN_4           (GPIO_Pin_0)
 // Port 2
 #define BUTTON_PIN_5           (GPIO_Pin_7)
-  
 #define BUTTON_PIN_6           (GPIO_Pin_3)
+
 #define LEDS_PORT1               (GPIOD)
 #define LED_PIN_6              (GPIO_Pin_1)
 
@@ -75,9 +75,10 @@ uint8_t btn_scenariomap[BTN_NUM] = {1,2,3,4,5,6};
 // Get Button pin input
 #define pinKey1                ((BitStatus)(BUTTONS_PORT1->IDR & (uint8_t)BUTTON_PIN_1))
 #define pinKey2                ((BitStatus)(BUTTONS_PORT1->IDR & (uint8_t)BUTTON_PIN_2))
-#define pinKey3                ((BitStatus)(BUTTONS_PORT2->IDR & (uint8_t)BUTTON_PIN_3))
-#define pinKey4                ((BitStatus)(BUTTONS_PORT2->IDR & (uint8_t)BUTTON_PIN_4))
+#define pinKey3                ((BitStatus)(BUTTONS_PORT1->IDR & (uint8_t)BUTTON_PIN_3))
+#define pinKey4                ((BitStatus)(BUTTONS_PORT1->IDR & (uint8_t)BUTTON_PIN_4))
 #define pinKey5                ((BitStatus)(BUTTONS_PORT2->IDR & (uint8_t)BUTTON_PIN_5))
+#define pinKey6                ((BitStatus)(BUTTONS_PORT2->IDR & (uint8_t)BUTTON_PIN_6))
 
 #define BUTTON_DEBONCE_DURATION                 1       // The unit is 10 ms, so the duration is 10 ms.
 #define BUTTON_WAIT_2S                          100     // The unit is 10 ms, so the duration is 1 s.
@@ -255,18 +256,18 @@ void btn_short_button_press(uint8_t _btn)
   switch( _btn ) {
   case keylst1:
       // darker
-      Msg_DevBrightness(OPERATOR_SET, 10);
+      Msg_DevBrightness(OPERATOR_SET, 25);
     break;
   case keylst2:
-      // less bright
+      // decrease BR
       Msg_DevBrightness(OPERATOR_SUB, BTN_STEP_SHORT_BR);
     break;
   case keylst3:
-      // darker
+      // modest
       Msg_DevBrightness(OPERATOR_SET, 50);
     break;
   case keylst4:
-      // less bright
+      // brightest
       Msg_DevBrightness(OPERATOR_SET, 100);
     break;
   case keylst5:
@@ -274,7 +275,7 @@ void btn_short_button_press(uint8_t _btn)
       Msg_DevBrightness(OPERATOR_SET, 75);
     break;
   case keylst6:
-      // add bright
+      // increase BR
       Msg_DevBrightness(OPERATOR_ADD, BTN_STEP_SHORT_BR);
     break;
   default:
