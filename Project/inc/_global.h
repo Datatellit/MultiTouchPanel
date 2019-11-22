@@ -19,11 +19,14 @@ typedef enum
 
 #define XLA_PRODUCT_NODEID        NODEID_MIN_REMOTE
 #define XLA_PRODUCT_Type          remotetypRFEnhanced
+
 // Xlight Application Identification
-#define XLA_VERSION               0x20
+#define XLA_VERSION               0x21
 #define XLA_ORGANIZATION          "xlight.ca"               // Default value. Read from EEPROM
 #define XLA_PRODUCT_NAME          "XRemote"                 // Default value. Read from EEPROM
 
+// Disable this define if use the panel as brightness control
+#define XLA_PANEL_Type_CCT
 
 #define XLA_MIN_VER_REQUIREMENT   0x20
 typedef struct

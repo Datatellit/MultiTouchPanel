@@ -32,7 +32,8 @@ LEDs
 #include "UsartDev.h"
 #include "LightPublicDefine.h"
 
-#define BTN_STEP_SHORT_BR  10
+#define BTN_STEP_SHORT_BR       10
+#define BTN_STEP_SHORT_CCT      350
 
 // button map table
 uint8_t btn_map[BTN_NUM] = {0,2,4,3,1};
@@ -255,29 +256,65 @@ void btn_short_button_press(uint8_t _btn)
   btn_action[_btn] = 1;
   switch( _btn ) {
   case keylst1:
+#ifdef XLA_PANEL_Type_CCT
+      // 3000K
+      Msg_DevCCT(OPERATOR_SET, 3000);
+#else    
       // darker
       Msg_DevBrightness(OPERATOR_SET, 25);
+#endif
     break;
+  
   case keylst2:
+#ifdef XLA_PANEL_Type_CCT
+      // warmer
+      Msg_DevCCT(OPERATOR_SUB, BTN_STEP_SHORT_CCT);
+#else    
       // decrease BR
       Msg_DevBrightness(OPERATOR_SUB, BTN_STEP_SHORT_BR);
-    break;
+#endif
+      break;
+  
   case keylst3:
+#ifdef XLA_PANEL_Type_CCT
+      // 4000K
+      Msg_DevCCT(OPERATOR_SET, 4000);
+#else    
       // modest
       Msg_DevBrightness(OPERATOR_SET, 50);
+#endif
     break;
+  
   case keylst4:
+#ifdef XLA_PANEL_Type_CCT
+      // Coldest
+      Msg_DevCCT(OPERATOR_SET, 6500);
+#else    
       // brightest
       Msg_DevBrightness(OPERATOR_SET, 100);
-    break;
+#endif
+      break;
+  
   case keylst5:
+#ifdef XLA_PANEL_Type_CCT
+      // 5500K
+      Msg_DevCCT(OPERATOR_SET, 5500);
+#else
       // darker
       Msg_DevBrightness(OPERATOR_SET, 75);
-    break;
+#endif
+      break;
+  
   case keylst6:
+#ifdef XLA_PANEL_Type_CCT
+      // Cooler
+      Msg_DevCCT(OPERATOR_ADD, BTN_STEP_SHORT_CCT);    
+#else
       // increase BR
       Msg_DevBrightness(OPERATOR_ADD, BTN_STEP_SHORT_BR);
-    break;
+#endif
+      break;
+  
   default:
     break;    
   }

@@ -290,3 +290,13 @@ void Msg_DevBrightness(uint8_t _op, uint8_t _br) {
   bMsgReady = 1;
 }
 
+// Set current device CCT
+void Msg_DevCCT(uint8_t _op, uint16_t _cct) {
+  build(BROADCAST_ADDRESS, gConfig.subID, C_SET, V_LEVEL, 1, 0);
+  moSetLength(3);
+  moSetPayloadType(P_UINT16);
+  sndMsg.payload.data[0] = _op;
+  sndMsg.payload.data[1] = _cct % 256;
+  sndMsg.payload.data[2] = _cct / 256;
+  bMsgReady = 1;
+}
